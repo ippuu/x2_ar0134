@@ -21,7 +21,6 @@
 
 
 
-//#define ARRAY_SIZE(x)   (sizeof(x) / sizeof(*(x)))
 ////////////////////////
 ////
 #define DEBUG_MODE 1
