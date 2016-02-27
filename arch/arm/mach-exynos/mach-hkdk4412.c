@@ -120,7 +120,7 @@ static struct usb3503_platform_data usb3503_pdata = {
 #if defined(CONFIG_ODROID_U2)
 	.ref_clk		= 	USB3503_REFCLK_24M,
 #else
-	.ref_clk		= 	USB3503_REFCLK_26M,
+	.ref_clk		= 	USB3503_REFCLK_24M,//26M 2016.02.25
 #endif
 	.gpio_intn		= EXYNOS4_GPX3(0),
 	.gpio_connect	= EXYNOS4_GPX3(4),
@@ -189,6 +189,9 @@ static struct i2c_board_info hkdk4412_i2c_devs2[] __initdata = {
 
 
 static struct i2c_board_info hkdk4412_i2c_devs4[] __initdata = {
+	//{
+	//	I2C_BOARD_INFO("ar0134",0x20),
+	//},
 
 };
 
@@ -199,7 +202,7 @@ static struct i2c_board_info hkdk4412_i2c_devs5[] __initdata = {
 	/* nothing here yet */
 	//ar0134 0x21 Read Address
 	{
-		I2C_BOARD_INFO("ar0134",0x20),
+		I2C_BOARD_INFO("ar0134",(0x20>>1)),
 	},
 
 };
@@ -708,11 +711,11 @@ static void __init hkdk4412_machine_init(void)
     s3c_i2c4_set_platdata(NULL);
 	i2c_register_board_info(4, hkdk4412_i2c_devs4,
 				ARRAY_SIZE(hkdk4412_i2c_devs4));
-
-	#if defined(CONFIG_ODROID_U2)
-	i2c_register_board_info(4, hkdk4412_i2c_devs4,
-				ARRAY_SIZE(hkdk4412_i2c_devs4));
-#endif
+//2016.02.25주석처리함
+//	#if defined(CONFIG_ODROID_U2)
+//	i2c_register_board_info(4, hkdk4412_i2c_devs4,
+//				ARRAY_SIZE(hkdk4412_i2c_devs4));
+//#endif
 
 	s3c_i2c5_set_platdata(NULL);
 	i2c_register_board_info(5, hkdk4412_i2c_devs5,

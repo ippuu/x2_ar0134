@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "Copy zImage"
+sudo cp arch/arm/boot/zImage /media/ippuu/boot/ && sync
+
+echo "copy Module file"
+
+sudo make modules_install ARCH=arm INSTALL_MOD_PATH=./media/ippuu/rootfs1 && sync
+cd ..
+
+

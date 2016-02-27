@@ -1406,16 +1406,19 @@ int i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
 				"len=%d%s\n", ret, (msgs[ret].flags & I2C_M_RD)
 				? 'R' : 'W', msgs[ret].addr, msgs[ret].len,
 				(msgs[ret].flags & I2C_M_RECV_LEN) ? "+" : "");
+			
 		}
 #endif
 
 		if (in_atomic() || irqs_disabled()) {
 			ret = i2c_trylock_adapter(adap);
+			
 			if (!ret)
 				/* I2C activity is ongoing. */
 				return -EAGAIN;
 		} else {
 			i2c_lock_adapter(adap);
+			
 		}
 
 		ret = __i2c_transfer(adap, msgs, num);
@@ -1444,10 +1447,12 @@ int i2c_master_send(const struct i2c_client *client, const char *buf, int count)
 	struct i2c_msg msg;
 
 	msg.addr = client->addr;
+	printk("client->addr : 0x%x\r\n",msg.addr);
 	msg.flags = client->flags & I2C_M_TEN;
+	printk("client->flags : 0x%x\r\n",msg.flags);
 	msg.len = count;
+	printk("client->msg.len :[%d]\r\n ",msg.len);
 	msg.buf = (char *)buf;
-
 	ret = i2c_transfer(adap, &msg, 1);
 
 	/*
